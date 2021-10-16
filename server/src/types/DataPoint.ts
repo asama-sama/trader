@@ -1,5 +1,5 @@
 interface DataPoint {
-  time: bigint,
+  time: number,
   price: number
 }
 
