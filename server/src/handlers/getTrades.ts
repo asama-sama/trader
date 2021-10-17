@@ -1,4 +1,4 @@
-import { TRADE_FILE_NAME } from '../../../common/const'
+import { TRADE_FILE_NAME } from '../utils/const'
 import checkFilenameExtension from '../utils/checkFilenameExtension'
 import parseCSV from '../utils/parseCSV'
 import { assertDataPoint } from '../types/DataPoint'

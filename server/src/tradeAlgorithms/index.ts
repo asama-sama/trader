@@ -1,4 +1,4 @@
-import { ALGORITHM_NAMES } from '../../../common/const'
+import { ALGORITHM_NAMES } from '../utils/const'
 import DataPoint from '../types/DataPoint'
 import greedy from './greedy'
 import greedyLookahead from './greedyLookahead'

@@ -6,9 +6,10 @@ import fileUpload from 'express-fileupload'
 const app = express()
 const port = 3001
 
-app.use(router)
 app.use(cors())
 app.use(fileUpload())
+
+app.use(router)
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)
