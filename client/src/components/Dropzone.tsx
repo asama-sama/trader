@@ -13,7 +13,7 @@ const Dropzone = ({setFile}: {setFile: Function}) => {
   })
 
   return (
-    <div {...getRootProps()} className="bg-gray-800 h-40 text-center text-gray-300 flex flex-col justify-center text-2xl">
+    <div {...getRootProps()} className="bg-gray-800 h-16 text-center text-gray-300 flex flex-col justify-center text-2xl">
       <input {...getInputProps()} />
       {
         isDragActive

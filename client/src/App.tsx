@@ -7,11 +7,14 @@ import IButton from './types/IButton'
 import Button from './components/Button'
 import getAlgorithms from './utils/api/getAlgorithms'
 import getTrades from './utils/api/getTrades'
+import ITrade from './types/ITrades'
+import Trades from './components/Trades'
 
 function App () {
   const [selectedAlg, setSelectedAlg] = useState<string>()
   const [algorithms, setAlgorithms] = useState<IKeyValue>({})
   const [dataFile, setDataFile] = useState<File>()
+  const [trades, setTrades] = useState<ITrade[]>()
 
   useEffect(() => {
     getAlgorithms()
@@ -30,6 +33,13 @@ function App () {
     return button
   })
 
+  const handleGetTrades = async () => {
+    if (dataFile && selectedAlg) {
+      const trades = await getTrades(dataFile, selectedAlg)
+      setTrades(trades)
+    }
+  }
+
   return (
     <div className="">
       <Dropzone setFile={setDataFile} />
@@ -37,14 +47,15 @@ function App () {
         <h1 className="text-center">Select algorithm</h1>
         <ButtonSelect buttons={buttons} />
       </div>
-      <div className="py-10 flex flex-col items-center">
+      <div className="py-4 flex flex-col items-center">
         <h1 className="text-center">Get trades</h1>
         <Button text={'Calculate'} 
-          onClick={() => dataFile && selectedAlg && getTrades(dataFile, selectedAlg)} 
+          onClick={handleGetTrades} 
           disabled={!(dataFile && selectedAlg)}
           color='bg-red-400' 
         />
       </div>
+      {trades && <Trades trades={trades} />}
     </div>
   )
 }
