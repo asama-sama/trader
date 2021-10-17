@@ -9,12 +9,14 @@ import getAlgorithms from './utils/api/getAlgorithms'
 import getTrades from './utils/api/getTrades'
 import ITrade from './types/ITrades'
 import Trades from './components/Trades'
+import BlockInput from './components/BlockInput'
 
 function App () {
   const [selectedAlg, setSelectedAlg] = useState<string>()
   const [algorithms, setAlgorithms] = useState<IKeyValue>({})
   const [dataFile, setDataFile] = useState<File>()
   const [trades, setTrades] = useState<ITrade[]>()
+  const [loadingTrades, setLoadingTrades] = useState<boolean>(false)
 
   useEffect(() => {
     getAlgorithms()
@@ -34,14 +36,22 @@ function App () {
   })
 
   const handleGetTrades = async () => {
-    if (dataFile && selectedAlg) {
-      const trades = await getTrades(dataFile, selectedAlg)
-      setTrades(trades)
+    try {
+      if (dataFile && selectedAlg) {
+        setLoadingTrades(true)
+        const trades = await getTrades(dataFile, selectedAlg)
+        setTrades(trades)
+      }
+    } catch(e) {
+      // display error message
+    } finally {
+      setLoadingTrades(false)
     }
   }
 
   return (
     <div className="">
+      {loadingTrades && <BlockInput />}
       <Dropzone setFile={setDataFile} />
       <div className="p-3">
         <h1 className="text-center">Select algorithm</h1>
