@@ -4,6 +4,6 @@ import healthCheck from '../handlers/healthCheck'
 const router = express.Router()
 
 router.get('/', healthCheck)
-router.get('/getTrades', getTrades)
+router.post('/getTrades', getTrades)
 
 export default router
