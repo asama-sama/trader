@@ -8,13 +8,15 @@ Tests can be run on the server with `npm run test`
 CSV files are stored in /data
 
 ## Description
-This project consists of two parts, a server that processes CSV data and outputs information on when to open and close trades, and a client to connect to the CSV and display the input.
+This project contains a solution to the problem posed below, to develop a program that looks over series data and determines the best trades to make. It consists of two parts, a server that processes CSV data and outputs information on when to open and close trades, and a client to connect to the CSV and display the input.
 
-The requirement for the project only stated that this should be a react app but I thought it would be more fitting to implement a server as well that handles the processing of the data and returns an output. If the algorithm is very intensive or processes a lot of data, its useful to take the data processing off of the browser. Or maybe the algorithm code itself is meant to be proprietary, this would keep it protected.
+The requirement for the project only stated that this should be a react app but I thought it would be fitting to implement a server that handles the data processing and returns an output. If the algorithm is very intensive or takes a lot of time, its useful to take the data processing off of the browser. Or maybe the algorithm code itself is meant to be proprietary, this would keep it protected.
+
+Here I have implemented one algorithm, called 'greedy', and have left room for other algorithms to be implemented.
 
 ## Algorithm implemented
 
-The algorithm that has been implemented here is quite naive - basically it takes the first point it can and opens a trade on it, then it finds the first point after that as a sell such that the `sell price - buy price` is positive, and the duration between the two is 30 and 60 minutes. If it can find no such sell point, it shifts the buy price up by one and tries again
+The algorithm that has been implemented here is quite naive - it takes the first point it can and opens a trade on it. Then it finds the first point after that as a sell point such that the `sell price - buy price` is positive, and the duration between the two points is between 30 and 60 minutes. If it can find no such sell point, it shifts the buy point along by one and tries again
 
 ## Features
 The user may choose from the app what algorithm they would like to run over the data. The app is extensible such that as more algorithms are implemented, they can be selected from the frontend. Currently there is only 1 but "greedyLookahead" is an example of another algorithm that only needs to be implemented.
@@ -25,6 +27,10 @@ The project features Typescript on both frontend and backend.
 
 ## Improvements
 The frontend does not contain any tests, though we could test our components render correctly as well.
+
+The efficiency of the given algorithm could be improved. 
+* As the minimum duration for a trade is 30 minutes, the algorithm doesn't need to loop through the first 30 values from a given buy point.  
+* The next `buy point` could be chosen more effectively than by shifting it over by 1. If the trend of data points is going downwards, finding the local minimum around there would likely give us the best result as our new 'buy'
 
 # Original Problem
 
