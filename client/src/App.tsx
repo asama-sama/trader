@@ -29,7 +29,7 @@ function App () {
     const button: IButton = {
       text: algorithms[algKey],
       onClick: () => setSelectedAlg(algKey),
-      color: 'bg-green-500',
+      color: 'green',
       selected: selectedAlg === algKey
     }
     return button
@@ -64,7 +64,7 @@ function App () {
         <Button text={'Calculate'} 
           onClick={handleGetTrades} 
           disabled={!(dataFile && selectedAlg)}
-          color='bg-red-400' 
+          color='red' 
         />
       </div>
       {trades && <Trades trades={trades} />}
