@@ -1,5 +1,5 @@
 import parseCSV from './parseCSV'
-import { case1, case2, case3, case4 } from '../__testdata/csv.data'
+import { case1, case2, case3, case4, case5 } from '../__testdata/csv.data'
 
 describe('parseCSV', () => {
   test('normal CSV', () => {
@@ -16,5 +16,9 @@ describe('parseCSV', () => {
 
   test('badly spaced CSV', () => {
     expect(parseCSV(case4.csv)).toEqual(case4.json)
+  })
+
+  test('it removed hidden chars', () => {
+    expect(parseCSV(case5.csv)).toEqual(case5.json)
   })
 })

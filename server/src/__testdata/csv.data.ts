@@ -41,4 +41,21 @@ const case4 = {
   ]
 }
 
-export { case1, case2, case3, case4 }
+const case5 = {
+  csv: `Time\r,Price\r
+  0,1.2546\r
+  1,1.2567\r
+  2,1.2577\r
+  3,1.2579\r
+  4,1.2593\r
+  `,
+  json: [
+    { time: '0', price: '1.2546' },
+    { time: '1', price: '1.2567' },
+    { time: '2', price: '1.2577' },
+    { time: '3', price: '1.2579' },
+    { time: '4', price: '1.2593' }
+  ]
+}
+
+export { case1, case2, case3, case4, case5 }

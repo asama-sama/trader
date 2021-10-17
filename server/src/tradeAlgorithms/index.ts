@@ -3,12 +3,14 @@ import DataPoint from '../types/DataPoint'
 import greedy from './greedy'
 import greedyLookahead from './greedyLookahead'
 import Trade from '../types/Trade'
+import KeyValue from '../types/KeyValue'
 
 const runAlgorithm = (name: string, data: DataPoint[]) => {
   let trades: Trade[]
-  if (name === ALGORITHM_NAMES.greedy) {
+  const algorithms:KeyValue = ALGORITHM_NAMES
+  if (algorithms[name] === algorithms.greedy) {
     trades = greedy(data)
-  } else if (name === ALGORITHM_NAMES.greedyLookahead) {
+  } else if (algorithms[name] === algorithms.greedyLookahead) {
     trades = greedyLookahead(data)
   } else {
     throw new Error(`Could not find algorithm: ${name}`)

@@ -14,14 +14,14 @@ const getTrades = (req: any, res: any) => {
     const csvData = parseCSV(fileData)
 
     const dataPoints = csvData.map(d => assertDataPoint(d))
-
-    const algorithmName = req.params.algorithm
+    const algorithmName = req.query.algorithm
 
     const trades = runAlgorithm(algorithmName, dataPoints)
 
     res.status(200).send(trades)
-  } catch (e) {
-    return res.status(500).send(e)
+  } catch (e: any) {
+    console.error(e.message)
+    return res.status(500).send(e.message)
   }
 }
 

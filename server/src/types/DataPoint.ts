@@ -1,13 +1,14 @@
-import CsvStructure from '../types/CsvStructure'
+import CsvStructure from './KeyValue'
 
 interface DataPoint {
   time: number,
   price: number
 }
 
-const assertDataPoint = ({ time, price }: CsvStructure) : DataPoint => {
+const assertDataPoint = (csvEntry: CsvStructure) : DataPoint => {
+  const { time, price } = csvEntry
   if (time === undefined || price === undefined) {
-    throw new Error('Object is not a DataPoint')
+    throw new Error(`Object is not a DataPoint: ${JSON.stringify(csvEntry)}`)
   }
   return {
     time: parseInt(time),
