@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
+import Dropzone from './components/Dropzone'
+import './App.css'
+import ButtonSelect from './components/ButtonSelect'
+import IKeyValue from './types/IKeyValue'
+import { API_URL } from './utils/const'
+import IButton from './types/IButton'
 
-function App() {
+function App () {
+  const [selectedAlg, setSelectedAlg] = useState<string>()
+  const [algorithms, setAlgorithms] = useState<IKeyValue>({})
+
+  useEffect(() => {
+    fetch(`${API_URL}/algorithms`)
+      .then(res => res.json())
+      .then((res:any) => {
+        console.log(res)
+        setAlgorithms(res)
+        console.log(res)
+      })
+  }, [])
+
+  const buttons = Object.keys(algorithms).map(algKey => {
+    const button: IButton = {
+      text: algorithms[algKey],
+      onClick: () => setSelectedAlg(algKey),
+      color: 'bg-green-500'
+    }
+    return button
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <Dropzone />
+      <ButtonSelect buttons={buttons} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
