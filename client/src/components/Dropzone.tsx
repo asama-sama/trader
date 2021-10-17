@@ -1,12 +1,16 @@
 import { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 
-const Dropzone = () => {
+const Dropzone = ({setFile}: {setFile: Function}) => {
   const onDrop = useCallback(acceptedFiles => {
     // Do something with the files
-    console.log(acceptedFiles)
-  }, [])
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+    setFile(acceptedFiles[0])
+  }, [setFile])
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ 
+    onDrop,
+    accept: 'text/csv' ,
+    maxFiles: 1
+  })
 
   return (
     <div {...getRootProps()} className="bg-gray-800 h-40 text-center text-gray-300 flex flex-col justify-center text-2xl">

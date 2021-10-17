@@ -3,20 +3,20 @@ import Dropzone from './components/Dropzone'
 import './App.css'
 import ButtonSelect from './components/ButtonSelect'
 import IKeyValue from './types/IKeyValue'
-import { API_URL } from './utils/const'
 import IButton from './types/IButton'
+import Button from './components/Button'
+import getAlgorithms from './utils/api/getAlgorithms'
+import getTrades from './utils/api/getTrades'
 
 function App () {
   const [selectedAlg, setSelectedAlg] = useState<string>()
   const [algorithms, setAlgorithms] = useState<IKeyValue>({})
+  const [dataFile, setDataFile] = useState<File>()
 
   useEffect(() => {
-    fetch(`${API_URL}/algorithms`)
-      .then(res => res.json())
+    getAlgorithms()
       .then((res:any) => {
-        console.log(res)
         setAlgorithms(res)
-        console.log(res)
       })
   }, [])
 
@@ -24,15 +24,27 @@ function App () {
     const button: IButton = {
       text: algorithms[algKey],
       onClick: () => setSelectedAlg(algKey),
-      color: 'bg-green-500'
+      color: 'bg-green-500',
+      selected: selectedAlg === algKey
     }
     return button
   })
 
   return (
     <div className="">
-      <Dropzone />
-      <ButtonSelect buttons={buttons} />
+      <Dropzone setFile={setDataFile} />
+      <div className="p-3">
+        <h1 className="text-center">Select algorithm</h1>
+        <ButtonSelect buttons={buttons} />
+      </div>
+      <div className="py-10 flex flex-col items-center">
+        <h1 className="text-center">Get trades</h1>
+        <Button text={'Calculate'} 
+          onClick={() => dataFile && selectedAlg && getTrades(dataFile, selectedAlg)} 
+          disabled={!(dataFile && selectedAlg)}
+          color='bg-red-400' 
+        />
+      </div>
     </div>
   )
 }

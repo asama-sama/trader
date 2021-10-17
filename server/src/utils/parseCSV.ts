@@ -1,4 +1,4 @@
-import CsvStructure from '../types/CsvStructure'
+import CsvStructure from '../types/KeyValue'
 
 // converts a generic csv file to a json structure
 // splits rows on '\n' and cells on ','

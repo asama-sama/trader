@@ -2,7 +2,7 @@ import Button from './Button'
 import IButton from '../types/IButton'
 
 const ButtonSelect = ({ buttons } : {buttons: IButton[]}) => {
-  return <div>
+  return <div className="flex justify-evenly">
     {buttons.map((b, idx) => <Button {...b} key={`button-${idx}`}/>)}
   </div>
 }
