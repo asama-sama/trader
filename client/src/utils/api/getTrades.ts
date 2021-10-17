@@ -7,7 +7,13 @@ const getTrades = (file: File, algorithm: string) => {
   return fetch(`${API_URL}/getTrades?algorithm=${algorithm}`, {
     method: 'POST',
     body: data
-  }).then(res => res.json())
+  }).then(async res => {
+    if (!res.ok) {
+      const errText = await res.json()
+      throw new Error(errText.error)
+    }
+    return res.json()
+  })
 }
 
 export default getTrades

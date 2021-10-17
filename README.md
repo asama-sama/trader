@@ -1,4 +1,34 @@
-# Problem Description
+# About
+
+## How to run
+`npm install` and `npm run start` in both the /client and /server folders separately.
+
+Tests can be run on the server with `npm run test`
+
+CSV files are stored in /data
+
+## Description
+This project consists of two parts, a server that processes CSV data and outputs information on when to open and close trades, and a client to connect to the CSV and display the input.
+
+The requirement for the project only stated that this should be a react app but I thought it would be more fitting to implement a server as well that handles the processing of the data and returns an output. If the algorithm is very intensive or processes a lot of data, its useful to take the data processing off of the browser. Or maybe the algorithm code itself is meant to be proprietary, this would keep it protected.
+
+## Algorithm implemented
+
+The algorithm that has been implemented here is quite naive - basically it takes the first point it can and opens a trade on it, then it finds the first point after that as a sell such that the `sell price - buy price` is positive, and the duration between the two is 30 and 60 minutes. If it can find no such sell point, it shifts the buy price up by one and tries again
+
+## Features
+The user may choose from the app what algorithm they would like to run over the data. The app is extensible such that as more algorithms are implemented, they can be selected from the frontend. Currently there is only 1 but "greedyLookahead" is an example of another algorithm that only needs to be implemented.
+
+Create-react-app was used for the frontend. Backend is built using express.
+
+The project features Typescript on both frontend and backend.
+
+## Improvements
+The frontend does not contain any tests, though we could test our components render correctly as well.
+
+# Original Problem
+
+## Problem Description
 Your challenge is to write a trading algorithm that, given historical data, attempts to determine the
 best trades that could have been made to maximise profits. By looking at the data provided, your
 algorithm will aim to select the best times to enter the market and the best times to exit the
@@ -27,7 +57,7 @@ of any limitations your approach does have.
 There are many ways to solve this problem. You are required to implement at least one profitable
 algorithm. If you like, you may implement multiple strategies and compare the results.
 
-# Data
+## Data
 The data is a CSV file with 2 columns, time and price. Time is the minute for the data point, for
 example, time=94 is 01hr 34mins. An example of what the CSV file looks like is (full data in
 external file provided):
@@ -52,13 +82,3 @@ Open at 101 (1.275), close 138 (1.2929) for profit 0.0179
 Open at 139 (1.2846), close 169 (1.3016) for profit 0.017
 Open at 178 (1.2943), close 228 (1.3728) for profit 0.0785
 Total profit 0.1594
-
-# Expectations on Implementation
-Please aim to spend no more than a few hours on this exercise.
-Due to the type of the role you are applying for we request that you implement your solution in
-React/JavaScript - any library choices beyond this are up to you;
-We respect your personal time and do not intend that this exercise uses more of it than necessary.
-We do not necessarily intend for candidates to produce production quality code. Nevertheless, we
-want you to demonstrate not just the core skills in the code, but also communicate your
-understanding of what it would take to produce a production tool. You can do this via placeholders,
-comments or other documentation as well as direct implementation.

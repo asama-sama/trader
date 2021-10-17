@@ -16,6 +16,7 @@ function App () {
   const [dataFile, setDataFile] = useState<File>()
   const [trades, setTrades] = useState<ITrade[]>()
   const [loadingTrades, setLoadingTrades] = useState<boolean>(false)
+  const [error, setError] = useState<string>('')
 
   useEffect(() => {
     getAlgorithms()
@@ -41,8 +42,9 @@ function App () {
         const trades = await getTrades(dataFile, selectedAlg)
         setTrades(trades)
       }
-    } catch(e) {
-      // display error message
+    } catch(e:any) {
+      console.log(e)
+      setError(e.message)
     } finally {
       setLoadingTrades(false)
     }
@@ -52,6 +54,7 @@ function App () {
     <div className="">
       {loadingTrades && <BlockInput />}
       <Dropzone setFile={setDataFile} />
+      {error && <div className="bg-red-400 text-center">{error}</div>}
       <div className="p-3">
         <h1 className="text-center">Select algorithm</h1>
         <ButtonSelect buttons={buttons} />
