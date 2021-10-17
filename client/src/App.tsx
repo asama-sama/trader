@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import Dropzone from './components/Dropzone'
-import './App.css'
 import ButtonSelect from './components/ButtonSelect'
 import IKeyValue from './types/IKeyValue'
 import IButton from './types/IButton'
